@@ -1,0 +1,22 @@
+{
+  "appUrl": "http://localhost:3001",
+  "db": {
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "",
+    "database": "liberty"
+  },
+  "secretKey": "test",
+  "hash": {
+    "saltLength": 10
+  },
+  "posts": {
+    "perPage": 2
+  },
+  "recaptcha": {
+    "public_recaptcha_key": "",
+    "recaptcha_key": ""
+  }
+}
