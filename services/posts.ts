@@ -1,8 +1,6 @@
 import { Posts } from "../models/posts";
 import config from "config";
 import { connect } from "../utils/db";
-// import { Op } from "sequelize";
-// import moment from 'moment';
 
 const PAGE_SIZE = config.get<number>("posts.perPage");
 
@@ -12,7 +10,6 @@ export async function getPosts(
   page: number,
   date?: string | string[] | undefined
 ) {
-  // const info = category ? { is_public: true, category } : { is_public: true };
   // const arrDates = [
   //   date?.concat(" 00:00:00.000+03"),
   //   date?.concat(" 23:59:59.999+03"),
@@ -21,16 +18,16 @@ export async function getPosts(
   //   date?.concat("T00:00:00.000Z"),
   //   date?.concat("T23:59:59.999Z"),
   // ];
-  const arrDates = [new Date("2023-01-30 01:00:00"), new Date("2023-01-30 23:59:59")];
-  console.log("arrDates <-------", arrDates);
+  const arrDates = [
+    new Date("2023-01-30 01:00:00"),
+    new Date("2023-01-30 23:59:59"),
+  ];
+  // console.log("arrDates <-------", arrDates);
   const posts = await Posts.findAll({
-    where: {
-      created_at: {
-        $between: arrDates,
-      },
-    },
     // where: {
-    //   created_at: `2023-01-30 19:49:49.639+03`
+    //   created_at: {
+    //     $between: arrDates,
+    //   },
     // },
     limit: PAGE_SIZE,
     offset: PAGE_SIZE * (page - 1),
@@ -43,9 +40,9 @@ export async function getPosts(
       "geo",
       "created_at",
       "author_id",
+      "is_enabled",
     ],
   });
-  console.log("posts11 <-------", posts);
   const count = await Posts.count(/* {
     where: {
       created_at: {
@@ -54,4 +51,13 @@ export async function getPosts(
     },
   } */);
   return { count, posts };
+}
+
+export async function editPost(postId: number, isBlocked: boolean) {
+  await Posts.update(
+    { is_enabled: isBlocked },
+    {
+      where: { id: postId },
+    }
+  );
 }

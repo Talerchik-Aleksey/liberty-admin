@@ -2,8 +2,7 @@ import { GetServerSideProps } from "next";
 import config from "config";
 import { PostType } from "../types/general";
 import { getPosts } from "../services/posts";
-import Posts from "../Components/Posts";
-import moment from 'moment';
+import Posts from "../Components/Posts/Posts";
 
 type PostsPageProps = {
   appUrl: string;
@@ -35,7 +34,6 @@ export const getServerSideProps: GetServerSideProps<PostsPageProps> = async (
 ) => {
   const appUrl = process.env.NEXTAUTH_URL || config.get<string>("appUrl");
   const postsPerPage = config.get<number>("posts.perPage");
-  console.log('ctx.query <-------', ctx.query);
   let page = Number(ctx.query.page);
   if (isNaN(page)) {
     page = 1;
