@@ -28,6 +28,7 @@ export default function Posts({
   const [open, setOpen] = useState(false);
   const [post, setPost] = useState<PostType>();
   const [email, setEmail] = useState<string>("");
+  const [filterDate, setFilterDate] = useState<string>("");
   const router = useRouter();
 
   const Map = useMemo(
@@ -38,6 +39,12 @@ export default function Posts({
       }),
     []
   );
+
+  useEffect(() => {
+    router.push({
+      pathname: `${appUrl}/posts`,
+    });
+  }, []);
 
   useEffect(() => {
     setPosts(initialPosts);
@@ -58,6 +65,13 @@ export default function Posts({
 
   function changePageNumber(page: number) {
     setCurrent(page);
+    if (filterDate) {
+      router.push({
+        pathname: `${appUrl}/posts`,
+        query: { page, date: filterDate },
+      });
+      return;
+    }
     router.push({
       pathname: `${appUrl}/posts`,
       query: { page },
@@ -68,14 +82,18 @@ export default function Posts({
     value: DatePickerProps["value"],
     dateString: [string, string] | string
   ) => {
-    // console.log("Formatted Selected Time: ", dateString);
-    console.log(
-      "moment(dateString) <-------",
-      moment(dateString).format("YYYY-MM-D")
-    );
+    if (dateString) {
+      setFilterDate(`${moment(dateString).format("YYYY-MM-D")}`);
+      router.push({
+        pathname: `${appUrl}/posts`,
+        query: { page: 1, date: `${moment(dateString).format("YYYY-MM-D")}` },
+      });
+      return;
+    }
+    setFilterDate("");
     router.push({
       pathname: `${appUrl}/posts`,
-      query: { date: `${moment(dateString).format("YYYY-MM-D")}` },
+      query: { page: 1 },
     });
   };
 

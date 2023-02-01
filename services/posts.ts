@@ -1,6 +1,7 @@
 import { Posts } from "../models/posts";
 import config from "config";
 import { connect } from "../utils/db";
+import { Op } from "sequelize";
 
 const PAGE_SIZE = config.get<number>("posts.perPage");
 
@@ -10,25 +11,14 @@ export async function getPosts(
   page: number,
   date?: string | string[] | undefined
 ) {
-  // const arrDates = [
-  //   date?.concat(" 00:00:00.000+03"),
-  //   date?.concat(" 23:59:59.999+03"),
-  // ];
-  // const arrDates = [
-  //   date?.concat("T00:00:00.000Z"),
-  //   date?.concat("T23:59:59.999Z"),
-  // ];
-  const arrDates = [
-    new Date("2023-01-30 01:00:00"),
-    new Date("2023-01-30 23:59:59"),
-  ];
-  // console.log("arrDates <-------", arrDates);
+  const startedDate = new Date(`${date?.concat(" 00:00:00 UTC")}`);
+  const endDate = new Date(`${date?.concat(" 23:59:59 UTC")}`);
+  const where = date
+    ? { created_at: { [Op.between]: [startedDate, endDate] } }
+    : undefined;
+
   const posts = await Posts.findAll({
-    // where: {
-    //   created_at: {
-    //     $between: arrDates,
-    //   },
-    // },
+    where: where,
     limit: PAGE_SIZE,
     offset: PAGE_SIZE * (page - 1),
     attributes: [
@@ -43,13 +33,11 @@ export async function getPosts(
       "is_enabled",
     ],
   });
-  const count = await Posts.count(/* {
-    where: {
-      created_at: {
-        [Op.substring]: `${date}`,
-      },
-    },
-  } */);
+
+  const count = await Posts.count({
+    where: where,
+  });
+
   return { count, posts };
 }
 
