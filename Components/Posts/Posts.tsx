@@ -82,10 +82,11 @@ export default function Posts({
     dateString: [string, string] | string
   ) => {
     if (dateString) {
-      setFilterDate(`${moment(dateString).format("YYYY-MM-DD")}`);
+      const date = `${moment(dateString).format("YYYY-MM-DD")}`;
+      setFilterDate(date);
       router.push({
         pathname: `${appUrl}/posts`,
-        query: { page: 1, date: `${moment(dateString).format("YYYY-MM-DD")}` },
+        query: { page: 1, date },
       });
       return;
     }
