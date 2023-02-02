@@ -112,7 +112,7 @@ export default function Posts({
       if (!foundPost) {
         return;
       }
-      foundPost.is_enabled = res.data.data.isBlocked;
+      foundPost.is_blocked = res.data.data.isBlocked;
       setPosts([...currentPosts]);
       onClose();
     }
@@ -141,7 +141,7 @@ export default function Posts({
               render={(text, record: PostType, index) => {
                 return (
                   <>
-                    {record.is_enabled ? (
+                    {!record.is_blocked ? (
                       <></>
                     ) : (
                       <div key={record.id}>blocked</div>
@@ -192,9 +192,9 @@ export default function Posts({
             </div>
             <Button
               className={styles.buttonPost}
-              onClick={() => setIsBlocked(!post?.is_enabled)}
+              onClick={() => setIsBlocked(!post?.is_blocked)}
             >
-              {post?.is_enabled ? <div>Block</div> : <div>Unblock</div>}
+              {post?.is_blocked ? <div>Unblock</div> : <div>Block</div>}
             </Button>
           </Drawer>
           <Pagination

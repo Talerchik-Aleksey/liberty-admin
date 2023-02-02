@@ -15,7 +15,7 @@ export type PostType = {
   isPublic: boolean;
   lat: number;
   lng: number;
-  is_enabled: boolean;
+  is_blocked: boolean;
   author_id: number;
   users: { email: string };
 };

@@ -71,9 +71,9 @@ export class Posts extends Model {
   geo!: string;
 
   @AllowNull(false)
-  @Default(true)
+  @Default(false)
   @Column(DataType.BOOLEAN)
-  is_enabled!: boolean;
+  is_blocked!: boolean;
 
   @BelongsTo(() => Users, { foreignKey: "author_id" })
   users?: Users;

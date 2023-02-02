@@ -29,7 +29,7 @@ export async function getPosts(
         "geo",
         "created_at",
         "author_id",
-        "is_enabled",
+        "is_blocked",
       ],
       include: {
         model: Users,
@@ -58,7 +58,7 @@ export async function getPosts(
       "geo",
       "created_at",
       "author_id",
-      "is_enabled",
+      "is_blocked",
     ],
     include: {
       model: Users,
@@ -75,7 +75,7 @@ export async function getPosts(
 
 export async function editPost(postId: number, isBlocked: boolean) {
   await Posts.update(
-    { is_enabled: isBlocked },
+    { is_blocked: isBlocked },
     {
       where: { id: postId },
     }
