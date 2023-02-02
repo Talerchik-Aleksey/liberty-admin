@@ -14,7 +14,7 @@ export default function Footer() {
         <Link className={styles.linkAbout} href="/about">
           <div className={styles.clickableText}>About LibertyMeets</div>
         </Link>
-        <div className={styles.liberty}>LibertyMeets ©️ 2022</div>
+        <div className={styles.liberty}>LibertyMeets ©️ 2023</div>
       </div>
     </footer>
   );

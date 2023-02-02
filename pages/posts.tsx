@@ -18,14 +18,12 @@ export default function PostsPage({
   count,
 }: PostsPageProps) {
   return (
-    <>
-      <Posts
-        appUrl={appUrl}
-        postsPerPage={postsPerPage}
-        initialPosts={posts}
-        initialCount={count}
-      />
-    </>
+    <Posts
+      appUrl={appUrl}
+      postsPerPage={postsPerPage}
+      initialPosts={posts}
+      initialCount={count}
+    />
   );
 }
 

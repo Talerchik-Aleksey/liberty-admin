@@ -17,4 +17,5 @@ export type PostType = {
   lng: number;
   is_enabled: boolean;
   author_id: number;
+  users: { email: string };
 };

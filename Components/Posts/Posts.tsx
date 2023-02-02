@@ -27,7 +27,6 @@ export default function Posts({
   const [totalCount, setTotalCount] = useState<number>(initialCount);
   const [open, setOpen] = useState(false);
   const [post, setPost] = useState<PostType>();
-  const [email, setEmail] = useState<string>("");
   const [filterDate, setFilterDate] = useState<string>("");
   const router = useRouter();
 
@@ -83,10 +82,10 @@ export default function Posts({
     dateString: [string, string] | string
   ) => {
     if (dateString) {
-      setFilterDate(`${moment(dateString).format("YYYY-MM-D")}`);
+      setFilterDate(`${moment(dateString).format("YYYY-MM-DD")}`);
       router.push({
         pathname: `${appUrl}/posts`,
-        query: { page: 1, date: `${moment(dateString).format("YYYY-MM-D")}` },
+        query: { page: 1, date: `${moment(dateString).format("YYYY-MM-DD")}` },
       });
       return;
     }
@@ -99,12 +98,6 @@ export default function Posts({
 
   async function changeStatus(item: PostType) {
     setPost(item);
-    const res = await axios.get(`${appUrl}/api/users/getEmail`, {
-      params: { authorId: item.author_id },
-    });
-    if (res.status === 200) {
-      setEmail(res.data.data.email);
-    }
     showDrawer();
   }
 
@@ -185,7 +178,7 @@ export default function Posts({
             <div className={styles.isPublic}>
               Public: {!post?.isPublic ? <div>yes</div> : <div>no</div>}
             </div>
-            <p>Author: {email}</p>
+            <p>Author: {post?.users.email}</p>
             <p>Description: {post?.description}</p>
             <p>Location: {post?.geo}</p>
             <div className={styles.map}>

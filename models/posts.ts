@@ -7,11 +7,8 @@ import {
   Default,
   PrimaryKey,
   AutoIncrement,
-  CreatedAt,
-  UpdatedAt,
-  DeletedAt,
   ForeignKey,
-  HasMany,
+  BelongsTo,
 } from "sequelize-typescript";
 import { Users } from "./users";
 
@@ -78,21 +75,6 @@ export class Posts extends Model {
   @Column(DataType.BOOLEAN)
   is_enabled!: boolean;
 
-  // @CreatedAt
-  // @Column
-  // created_at!: Date;
-
-  // @UpdatedAt
-  // @Column
-  // updated_at!: Date;
-
-  // @DeletedAt
-  // @Column
-  // deleted_at!: Date;
-
-  // @HasMany(() => FavoritePosts, { foreignKey: "post_id" })
-  // favoriteUsers?: FavoritePosts[];
-
-  //@HasMany(() => Threads, { foreignKey: "post_id" })
-  //threads?: Threads[];
+  @BelongsTo(() => Users, { foreignKey: "author_id" })
+  users?: Users;
 }
