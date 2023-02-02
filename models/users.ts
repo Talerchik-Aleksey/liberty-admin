@@ -45,7 +45,7 @@ export class Users extends Model {
   @AllowNull(false)
   @Default(false)
   @Column(DataType.BOOLEAN)
-  is_blocked!: boolean;
+  is_enabled!: boolean;
 
   @HasMany(() => Posts, { foreignKey: "author_id" })
   posts?: Posts[];
