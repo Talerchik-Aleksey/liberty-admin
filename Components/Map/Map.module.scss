@@ -1,0 +1,15 @@
+.mapContainer {
+  width: 300px;
+  height: 460px;
+  margin: 0 auto;
+
+  @media (max-width: 1080px) {
+    width: 250px !important;
+    height: 330px !important;
+  }
+
+  @media (max-width: 600px) {
+    width: 228px !important;
+    height: 230px !important;
+  }
+}
