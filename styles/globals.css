@@ -95,3 +95,7 @@ footer {
   margin-top: auto;
   flex-grow: 0;
 }
+
+.homeContainer {
+  min-height: 100vh;
+}
