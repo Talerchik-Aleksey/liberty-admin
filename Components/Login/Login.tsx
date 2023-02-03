@@ -97,16 +97,6 @@ export default function Login() {
               className={styles.inputPassword}
             />
           </Form.Item>
-          <div className={styles.box}>
-            <label className={styles.container}>
-              <span className={styles.checkboxText}>Remember me</span>
-              <input type="checkbox" className={styles.checkHighload} />
-              <span className={styles.highload2}></span>
-            </label>
-            <Link className={styles.forgot} href="/reset-password">
-              Forgot password
-            </Link>
-          </div>
           <Form.Item className={styles.logIn}>
             <Button
               type="primary"
