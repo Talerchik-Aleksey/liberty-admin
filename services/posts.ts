@@ -56,13 +56,10 @@ export async function getPosts(
   if (date) {
     startedDate = moment.utc(`${date}`).startOf("day");
     endDate = moment.utc(`${date}`).endOf("day");
+    postsQuery.where = { created_at: { [Op.between]: [startedDate, endDate] } };
+    countQuery.where = { created_at: { [Op.between]: [startedDate, endDate] } };
   } else {
-    startedDate = moment.utc().startOf("day");
-    endDate = moment.utc().endOf("day");
   }
-
-  postsQuery.where = { created_at: { [Op.between]: [startedDate, endDate] } };
-  countQuery.where = { created_at: { [Op.between]: [startedDate, endDate] } };
 
   const posts = await Posts.findAll(postsQuery);
   const count = await Posts.count(countQuery);
