@@ -181,7 +181,9 @@ export default function Posts({
             </div>
             <p>Author: {post?.users.email}</p>
             <p>Description: {post?.description}</p>
-            <p>Location: {post?.geo}</p>
+            <p>
+              Location: {post?.lat}, {post?.lng}
+            </p>
             <div className={styles.map}>
               <Map
                 lat={post?.lat as number}

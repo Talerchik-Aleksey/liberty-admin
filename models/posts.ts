@@ -7,6 +7,9 @@ import {
   Default,
   PrimaryKey,
   AutoIncrement,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
@@ -43,6 +46,7 @@ export class Posts extends Model {
   description!: string;
 
   @AllowNull(false)
+  @Default(false)
   @Column(DataType.BOOLEAN)
   is_public!: boolean;
 
@@ -66,14 +70,23 @@ export class Posts extends Model {
   @Column(DataType.STRING)
   zip!: string;
 
-  @AllowNull(true)
-  @Column(DataType.STRING)
-  geo!: string;
+  @Column({
+    type: DataType.GEOMETRY("POINT", 4326),
+  })
+  geo!: any;
 
   @AllowNull(false)
   @Default(true)
   @Column(DataType.BOOLEAN)
   is_enabled!: boolean;
+
+  @AllowNull(true)
+  @Column(DataType.DECIMAL)
+  lat!: number;
+
+  @AllowNull(true)
+  @Column(DataType.DECIMAL)
+  lng!: number;
 
   @AllowNull(false)
   @Default(false)
