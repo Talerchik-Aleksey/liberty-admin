@@ -36,6 +36,8 @@ export async function getPosts(
       "description",
       "is_public",
       "geo",
+      "lat",
+      "lng",
       "created_at",
       "author_id",
       "is_blocked",
